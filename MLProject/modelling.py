@@ -21,6 +21,8 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.2)
     input_example = X_train[0:5]
+
+    mlflow.autolog()
     
     model = RandomForestClassifier(n_estimators=n_estimators)
     model.fit(X_train, y_train)
