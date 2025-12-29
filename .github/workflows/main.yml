@@ -32,7 +32,7 @@ jobs:
       # Run MLflow Project
       - name: Run MLflow Project
         run: |
-          mlflow run MLproject --env-manager=local
+          mlflow run MLProject --env-manager=local
 
       # Upload MLflow artifacts 
       - name: Upload MLflow Artifacts
