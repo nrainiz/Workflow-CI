@@ -1,0 +1,42 @@
+name: CI MLflow Training
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  train-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mlflow scikit-learn pandas joblib
+
+      # Run MLflow Project
+      - name: Run MLflow Project
+        run: |
+          mlflow run MLproject --env-manager=local
+
+      # Upload MLflow artifacts 
+      - name: Upload MLflow Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mlflow-artifacts
+          path: mlruns/
