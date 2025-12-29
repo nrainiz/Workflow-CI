@@ -21,17 +21,17 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.2)
     input_example = X_train[0:5]
-    with mlflow.start_run():
-        model = RandomForestClassifier(n_estimators=n_estimators)
-        model.fit(X_train, y_train)
+    
+    model = RandomForestClassifier(n_estimators=n_estimators)
+    model.fit(X_train, y_train)
 
-        mlflow.sklearn.log_model(
-            sk_model=model,
-            artifact_path="model",
-            input_example=input_example
-        )
+    mlflow.sklearn.log_model(
+        sk_model=model,
+        artifact_path="model",
+        input_example=input_example
+    )
 
-        mlflow.log_param("n_estimators", n_estimators)
-        # Log metrics
-        accuracy = model.score(X_test, y_test)
-        mlflow.log_metric("accuracy", accuracy)
+    mlflow.log_param("n_estimators", n_estimators)
+    # Log metrics
+    accuracy = model.score(X_test, y_test)
+    mlflow.log_metric("accuracy", accuracy)
